@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'Capstone.middleware.VisitorCountMiddleware',
 ]
 
 ROOT_URLCONF = 'Capstone.urls'
