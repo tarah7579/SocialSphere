@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_ratelimit.middleware.RatelimitMiddleware', 
     'Capstone.middleware.VisitorCountMiddleware',
 ]
 
@@ -81,11 +82,11 @@ WSGI_APPLICATION = 'Capstone.wsgi.application'
 
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),    }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),    }
+}
 
 
 #trisanjae email
@@ -102,16 +103,16 @@ WSGI_APPLICATION = 'Capstone.wsgi.application'
 
 
 #github email
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'ViruOZekOCZVQqYVkEdOHZPzDGhCdtmQ',
-        'HOST': 'roundhouse.proxy.rlwy.net',
-        'PORT': '21262',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': 'ViruOZekOCZVQqYVkEdOHZPzDGhCdtmQ',
+#         'HOST': 'roundhouse.proxy.rlwy.net',
+#         'PORT': '21262',
+#     }
+# }
 
 # DATABASES = {
 #     "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1000),
@@ -167,12 +168,28 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+#media directory
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 AUTH_USER_MODEL = 'SocialSphere.ContentManager'
 
-
+#session and for ssl comment
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+#         'LOCATION': 'unique-snowflake',
+#     }
+# }
+
+#recaptcha
+
+
+
+RECAPTCHA_SITE_KEY = os.getenv('RECAPTCHA_SITE_KEY', '6Ld_NFkqAAAAAH_Zq5GLRSBSVHme3y5md8nWd9zs')
+RECAPTCHA_SECRET_KEY = os.getenv('RECAPTCHA_SECRET_KEY', '6Ld_NFkqAAAAAAlQQORxBkBNnUmqY1IbpF4S4O9L')
