@@ -27,7 +27,7 @@ DATABASE_URL = "postgresql://socialsphere_user:MfMqXV7NI7F4bJOpQvvWDtRS74SrsB8W@
 SECRET_KEY = 'django-insecure-1w$wd8hlmz85cgiybc(cesn3co%ylz0o8invgh32)dt&$lqkvl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
