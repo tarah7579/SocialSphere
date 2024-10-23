@@ -24,12 +24,21 @@ DATABASE_URL = "postgresql://socialsphere_user:MfMqXV7NI7F4bJOpQvvWDtRS74SrsB8W@
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1w$wd8hlmz85cgiybc(cesn3co%ylz0o8invgh32)dt&$lqkvl'
+# SECRET_KEY = 'django-insecure-1w$wd8hlmz85cgiybc(cesn3co%ylz0o8invgh32)dt&$lqkvl'
+
+SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-1w$wd8hlmz85cgiybc(cesn3co%ylz0o8invgh32)dt&$lqkvl')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = ['socialsphere-83da.onrender.com', 'socialsphere.pythonanywhere.com']
+
+
+if DEBUG:
+    ALLOWED_HOSTS.append('127.0.0.1')
+
 
 
 # Application definition
@@ -159,15 +168,19 @@ USE_TZ = True
 
 # Static file settings
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+
 
 
 # STATIC_URL = 'static/'
 
 # STATICFILES_DIRS = ['static']
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -183,7 +196,7 @@ AUTH_USER_MODEL = 'SocialSphere.ContentManager'
 #session and for ssl comment
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 3600 
-SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = True
 
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
