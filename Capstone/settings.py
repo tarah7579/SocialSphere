@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-1w$wd8hlmz85c
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['socialsphere-83da.onrender.com', 'socialsphere.pythonanywhere.com']
 
